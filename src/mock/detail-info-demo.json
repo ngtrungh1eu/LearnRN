@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1",
+    "name": "Canon EOS 5D Mark IV",
+    "image": "https://example.com/canon-5d-mark-iv.jpg",
+    "price": 2499.99,
+    "description": "The Canon EOS 5D Mark IV is a full-frame DSLR camera that delivers exceptional image quality and versatility for both stills and video.",
+    "sensor": "30.4 MP Full-Frame CMOS",
+    "resolution": "6720 x 4480",
+    "isoRange": "100-32000 (expandable to 50-102400)",
+    "shutterSpeed": "1/8000 to 30 sec"
+  }
+]
