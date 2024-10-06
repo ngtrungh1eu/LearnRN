@@ -4,109 +4,319 @@
     "name": "Canon EOS 5D Mark IV",
     "image": "https://cdn.vjshop.vn/may-anh/dslr/canon/canon-eos-5d-mark-iv/canon-eos-5d-mark-iv.jpg",
     "price": 2499.99,
+    "brand": "Canon",
     "description": "The Canon EOS 5D Mark IV is a full-frame DSLR camera that delivers exceptional image quality and versatility for both stills and video.",
     "sensor": "30.4 MP Full-Frame CMOS",
     "resolution": "6720 x 4480",
     "isoRange": "100-32000 (expandable to 50-102400)",
-    "shutterSpeed": "1/8000 to 30 sec"
+    "shutterSpeed": "1/8000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "2",
     "name": "Nikon D850",
     "image": "https://cdn.vjshop.vn/may-anh/dslr/nikon/d850/nikon-d8502.jpg",
     "price": 2996.95,
+    "brand": "Nikon",
     "description": "The Nikon D850 is a full-frame DSLR camera with a remarkable 45.7 MP resolution and excellent dynamic range for stunning detail and color.",
     "sensor": "45.7 MP Full-Frame BSI CMOS",
     "resolution": "8256 x 5504",
     "isoRange": "64-25600 (expandable to 32-102400)",
-    "shutterSpeed": "1/8000 to 30 sec"
+    "shutterSpeed": "1/8000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "3",
     "name": "Sony Alpha a7R IV",
     "image": "https://cdn.vjshop.vn/may-anh/mirrorless/sony/sony-alpha-a7r-iva/sony-alpha-a7r-iva.jpg",
     "price": 3498.0,
+    "brand": "Sony",
     "description": "The Sony Alpha a7R IV is a full-frame mirrorless camera boasting a 61 MP sensor, offering incredible resolution and impressive autofocus performance.",
     "sensor": "61 MP Full-Frame Exmor R BSI CMOS",
     "resolution": "9504 x 6336",
     "isoRange": "100-32000 (expandable to 50-102400)",
-    "shutterSpeed": "1/8000 to 30 sec"
+    "shutterSpeed": "1/8000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "4",
     "name": "Fujifilm X-T4",
     "image": "https://cdn.vjshop.vn/may-anh/mirrorless/fujifilm/fujifilm-x-t4/fujifilm-x-t4-body-back.jpg",
     "price": 1699.0,
+    "brand": "Fujifilm",
     "description": "The Fujifilm X-T4 is a high-performance APS-C mirrorless camera, featuring in-body stabilization and advanced video capabilities.",
     "sensor": "26.1 MP APS-C X-Trans CMOS 4",
     "resolution": "6240 x 4160",
     "isoRange": "160-12800 (expandable to 80-51200)",
-    "shutterSpeed": "1/8000 to 30 sec"
+    "shutterSpeed": "1/8000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "5",
     "name": "Panasonic Lumix GH5",
     "image": "https://binhminhdigital.com/storedata/images/product/may-anh-panasonic-lumix-gh5(1).jpg",
     "price": 1299.99,
+    "brand": "Panasonic",
     "description": "The Panasonic Lumix GH5 is a mirrorless camera with advanced video features and a rugged design, ideal for professional videographers.",
     "sensor": "20.3 MP Micro Four Thirds Live MOS",
     "resolution": "5184 x 3888",
     "isoRange": "200-25600 (expandable to 100-25600)",
-    "shutterSpeed": "1/8000 to 60 sec"
+    "shutterSpeed": "1/8000 to 60 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "6",
     "name": "Olympus OM-D E-M1 Mark III",
     "image": "https://product.hstatic.net/1000234350/product/m1_iii_olym_1_0a5d001f43614955a1c7649ddef604d3_master.jpg",
     "price": 1799.0,
+    "brand": "Olympus",
     "description": "The Olympus OM-D E-M1 Mark III is a compact mirrorless camera with impressive in-body stabilization and weatherproof construction, perfect for outdoor photography.",
     "sensor": "20.4 MP Micro Four Thirds Live MOS",
     "resolution": "5184 x 3888",
     "isoRange": "200-25600 (expandable to 64-25600)",
-    "shutterSpeed": "1/8000 to 60 sec"
+    "shutterSpeed": "1/8000 to 60 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "7",
     "name": "Leica Q2",
     "image": "https://cdn.vjshop.vn/may-anh/mirrorless/leica/leica-q2/leica-q2-chinh-hang10-1500x1500.jpg",
     "price": 4995.0,
+    "brand": "Leica",
     "description": "The Leica Q2 is a premium compact full-frame camera with a fixed 28mm lens, delivering exceptional image quality in a sleek, stylish package.",
     "sensor": "47.3 MP Full-Frame CMOS",
     "resolution": "8368 x 5584",
     "isoRange": "50-50000",
-    "shutterSpeed": "1/2000 to 120 sec"
+    "shutterSpeed": "1/2000 to 120 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "8",
     "name": "Pentax K-1 Mark II",
     "image": "https://tixiai.com.vn/wp-content/uploads/2018/02/Pentax-K-1-II-1.jpg",
     "price": 1796.95,
+    "brand": "Pentax",
     "description": "The Pentax K-1 Mark II is a full-frame DSLR known for its rugged design and in-body image stabilization, perfect for outdoor and landscape photography.",
     "sensor": "36.4 MP Full-Frame CMOS",
     "resolution": "7360 x 4912",
     "isoRange": "100-819200",
-    "shutterSpeed": "1/8000 to 30 sec"
+    "shutterSpeed": "1/8000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "9",
     "name": "Sony Alpha a6600",
     "image": "https://www.sony.com.vn/image/6dccadd4c74ff39453d6b07a5c99a7cb?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF",
     "price": 1398.0,
+    "brand": "Sony",
     "description": "The Sony Alpha a6600 is a compact APS-C mirrorless camera with impressive autofocus performance and excellent video capabilities.",
     "sensor": "24.2 MP APS-C Exmor CMOS",
     "resolution": "6000 x 4000",
     "isoRange": "100-32000 (expandable to 50-102400)",
-    "shutterSpeed": "1/4000 to 30 sec"
+    "shutterSpeed": "1/4000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   },
   {
     "id": "10",
     "name": "Nikon Z6 II",
     "image": "https://cdn.vjshop.vn/may-anh/mirrorless/nikon/nikon-z6-ii/nikon-z6-ii.jpg",
     "price": 1996.95,
+    "brand": "Nikon",
     "description": "The Nikon Z6 II is a full-frame mirrorless camera offering high-speed performance, 4K video, and excellent low-light capabilities.",
     "sensor": "24.5 MP Full-Frame BSI CMOS",
     "resolution": "6048 x 4024",
     "isoRange": "100-51200 (expandable to 50-204800)",
-    "shutterSpeed": "1/8000 to 30 sec"
+    "shutterSpeed": "1/8000 to 30 sec",
+    "feedbacks": [
+      {
+        "rating": 4,
+        "comment": "Great value.",
+        "author": "Avery Carter",
+        "time": "2024-12-20 14:45"
+      },
+      {
+        "rating": 5,
+        "comment": "Vibrant colors.",
+        "author": "Isabella Rodriguez",
+        "time": "2024-12-22 16:10"
+      },
+      {
+        "rating": 3,
+        "comment": "Not as vibrant as expected.",
+        "author": "Noah Martinez",
+        "time": "2024-12-23 12:00"
+      }
+    ]
   }
 ]

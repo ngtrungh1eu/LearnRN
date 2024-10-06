@@ -1,14 +1,12 @@
-import { Button, StyleSheet } from "react-native";
 import React from "react";
+import HomeScreen from "./src/screens/HomeScreen";
+import ProductDetailScreen from "./src/screens/ProductDetailScreen";
+import FavoriteScreenList from "./src/screens/FavoriteScreenList";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Provider as PaperProvider } from "react-native-paper";
 import { Ionicons } from "@expo/vector-icons";
-
-import HomeScreen from "./src/screens/HomeScreen";
-import FavoriteScreen from "./src/screens/FavoriteScreen";
-import ProductDetailScreen from "./src/screens/ProductDetailScreen";
 import { FavoriteProvider } from "./src/contexts/FavoriteContext";
 
 const Tab = createBottomTabNavigator();
@@ -28,8 +26,22 @@ const HomeTabs = () => (
       },
     })}
   >
-    <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-    <Tab.Screen name="Favorites" component={FavoriteScreen} options={{ headerShown: false }} />
+    <Tab.Screen
+      name="Home"
+      component={HomeScreen}
+      options={{
+        headerShown: true,
+        headerTitleAlign: "left",
+      }}
+    />
+    <Tab.Screen
+      name="Favorites"
+      component={FavoriteScreenList}
+      options={{
+        headerShown: true,
+        headerTitleAlign: "left",
+      }}
+    />
   </Tab.Navigator>
 );
 
@@ -43,6 +55,7 @@ export default function App() {
               name="Main"
               component={HomeTabs}
               options={{
+                headerShown: false,
                 headerTitle: "Camera Shop",
                 headerTitleAlign: "center",
                 headerTintColor: "white",
@@ -50,7 +63,7 @@ export default function App() {
                 headerMode: "float",
               }}
             />
-            <Stack.Screen name="ProductDetail" component={ProductDetailScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="ProductDetail" component={ProductDetailScreen} options={{}} />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

@@ -1,7 +1,7 @@
 // src/screens/FavoriteScreen.tsx
 import React from "react";
 import { View, FlatList, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
-import { Card, Title, Button } from "react-native-paper";
+import { Card, Title, Button, Avatar, List } from "react-native-paper";
 import { useFavorite } from "../contexts/FavoriteContext";
 
 const { width } = Dimensions.get("window");
