@@ -1,13 +1,26 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { View, FlatList, Dimensions, StyleSheet, TouchableOpacity, Text, ScrollView, ViewBase } from "react-native";
-import { Card, Title, TextInput, MD3Colors, IconButton, Snackbar, Chip, Button } from "react-native-paper";
+import React, { useCallback, useMemo, useState, useEffect } from "react";
+import { View, FlatList, Dimensions, StyleSheet, TouchableOpacity } from "react-native";
+import { Card, Title, TextInput, MD3Colors, IconButton, Snackbar, Chip } from "react-native-paper";
 import { useFavorite } from "../contexts/FavoriteContext";
-import camera from "../mock/camera.json";
+import { ArtSupply } from "../types/type";
 
 const { width } = Dimensions.get("window");
 const cardWidth = (width - 32) / 2;
 
-const brands = Array.from(new Set(camera.map((item) => item.brand || "Unknown").filter(Boolean)));
+const fetchProducts = async (): Promise<ArtSupply[]> => {
+  try {
+    const response = await fetch("https://64b393870efb99d86268181e.mockapi.io/api/v1/color");
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    console.log("Fetched data:", data);
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch products:", error);
+    return [];
+  }
+};
 
 export default function HomeScreen({ navigation }: { navigation: any }) {
   const { addFavorite, removeFavorite, isFavorite } = useFavorite();
@@ -15,23 +28,39 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
   const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
   const [snackbarVisible, setSnackbarVisible] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [products, setProducts] = useState<ArtSupply[]>([]);
 
-  const filteredCamera = useMemo(() => {
-    return camera.filter(
+  useEffect(() => {
+    const loadProducts = async () => {
+      const fetchedProducts = await fetchProducts();
+      console.log("Fetched products:", fetchedProducts);
+      console.log("Component mounted");
+      setProducts(fetchedProducts);
+    };
+    loadProducts();
+  }, []);
+
+  const brands = useMemo(
+    () => Array.from(new Set(products.map((item) => item.brand || "Unknown").filter(Boolean))),
+    [products]
+  );
+
+  const filteredProducts = useMemo(() => {
+    return products.filter(
       (item) =>
-        item.name.toLowerCase().includes(searchText.toLowerCase()) &&
+        item.artName.toLowerCase().includes(searchText.toLowerCase()) &&
         (selectedBrand ? (item.brand || "Unknown") === selectedBrand : true)
     );
-  }, [searchText, selectedBrand]);
+  }, [products, searchText, selectedBrand]);
 
   const handleFavorite = useCallback(
-    (item: { id: string; name: string; image: string }) => {
+    (item: ArtSupply) => {
       if (isFavorite(item.id)) {
         removeFavorite(item.id);
-        setSnackbarMessage(`Removed ${item.name} from favorites`);
+        setSnackbarMessage(`Removed ${item.artName} from favorites`);
       } else {
         addFavorite(item);
-        setSnackbarMessage(`Added ${item.name} to favorites`);
+        setSnackbarMessage(`Added ${item.artName} to favorites`);
       }
       setSnackbarVisible(true);
     },
@@ -39,13 +68,13 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
   );
 
   const renderProductCard = useCallback(
-    ({ item }: { item: { id: string; name: string; image: string; brand?: string } }) => (
+    ({ item }: { item: ArtSupply }) => (
       <TouchableOpacity onPress={() => navigation.navigate("ProductDetail", { product: item })}>
         <Card style={styles.card}>
           <Card.Cover source={{ uri: item.image }} style={styles.cardImage} resizeMode="contain" />
           <Card.Content>
             <Title numberOfLines={2} style={styles.title}>
-              {item.name}
+              {item.artName}
             </Title>
           </Card.Content>
           <Card.Actions style={styles.cardActions}>
@@ -107,7 +136,12 @@ export default function HomeScreen({ navigation }: { navigation: any }) {
           style={styles.brandList}
         />
       </View>
-      <FlatList data={filteredCamera} numColumns={2} renderItem={renderProductCard} keyExtractor={(item) => item.id} />
+      <FlatList
+        data={filteredProducts}
+        numColumns={2}
+        renderItem={renderProductCard}
+        keyExtractor={(item) => item.id}
+      />
       <Snackbar duration={2000} visible={snackbarVisible} onDismiss={() => setSnackbarVisible(false)}>
         {snackbarMessage}
       </Snackbar>

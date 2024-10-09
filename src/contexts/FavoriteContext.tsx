@@ -1,23 +1,19 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-};
+import { ArtSupply } from "../types/type";
 
 type FavoriteContextType = {
-  favorites: Product[];
-  addFavorite: (product: Product) => void;
+  favorites: ArtSupply[];
+  addFavorite: (product: ArtSupply) => void;
   removeFavorite: (productId: string) => void;
   isFavorite: (productId: string) => boolean;
+  deleteAllFavorite: () => void;
 };
 
 const FavoriteContext = createContext<FavoriteContextType | undefined>(undefined);
 
 export const FavoriteProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [favorites, setFavorites] = useState<Product[]>([]);
+  const [favorites, setFavorites] = useState<ArtSupply[]>([]);
 
   useEffect(() => {
     loadFavorites();
@@ -34,7 +30,7 @@ export const FavoriteProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const saveFavorites = async (newFavorites: Product[]) => {
+  const saveFavorites = async (newFavorites: ArtSupply[]) => {
     try {
       await AsyncStorage.setItem("favorites", JSON.stringify(newFavorites));
     } catch (error) {
@@ -42,7 +38,7 @@ export const FavoriteProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  const addFavorite = (product: Product) => {
+  const addFavorite = (product: ArtSupply) => {
     const newFavorites = [...favorites, product];
     setFavorites(newFavorites);
     saveFavorites(newFavorites);
@@ -56,8 +52,13 @@ export const FavoriteProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const isFavorite = (productId: string) => favorites.some((fav) => fav.id === productId);
 
+  const deleteAllFavorite = () => {
+    setFavorites([]);
+    saveFavorites([]);
+  };
+
   return (
-    <FavoriteContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite }}>
+    <FavoriteContext.Provider value={{ favorites, addFavorite, removeFavorite, isFavorite, deleteAllFavorite }}>
       {children}
     </FavoriteContext.Provider>
   );

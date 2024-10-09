@@ -18,3 +18,15 @@ export type Feedback = {
   author: string;
   time: string;
 };
+
+export type ArtSupply = {
+  id: string;
+  artName: string;
+  price: number;
+  description: string;
+  glassSurface: boolean;
+  image: string;
+  brand: string;
+  limitedTimeDeal: number;
+  feedbacks: Feedback[];
+};

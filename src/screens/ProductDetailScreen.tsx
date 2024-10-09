@@ -1,46 +1,32 @@
-import React from "react";
-import { View, ScrollView, Image, StyleSheet, Dimensions, Text } from "react-native";
-import { Title, Paragraph, IconButton, MD3Colors, List, Divider } from "react-native-paper";
+import React, { useState, useMemo } from "react";
+import { View, ScrollView, Image, StyleSheet, Dimensions, Text, TouchableOpacity } from "react-native";
+import { Title, Paragraph, IconButton, MD3Colors, List, Divider, Chip } from "react-native-paper";
 import { useFavorite } from "../contexts/FavoriteContext";
 import { AirbnbRating } from "react-native-ratings";
+import { ArtSupply, Feedback } from "../types/type";
+import { DrawerNavigationProp } from "@react-navigation/drawer";
 
 const { width } = Dimensions.get("window");
 
-type Feedback = {
-  rating: number;
-  comment: string;
-  author: string;
-  time: string;
+type ProductDetailScreenProps = {
+  route: any;
+  navigation: DrawerNavigationProp<any, "ProductDetail">;
 };
 
-type Product = {
-  id: string;
-  name: string;
-  image: string;
-  price: number;
-  description: string;
-  sensor: string;
-  resolution: string;
-  isoRange: string;
-  shutterSpeed: string;
-  feedbacks: Feedback[];
-};
-
-const ProductInfo = ({ product }: { product: Product }) => (
+const ProductInfo = ({ product }: { product: ArtSupply }) => (
   <View style={styles.infoContainer}>
-    <Title style={styles.title}>{product.name}</Title>
+    <Title style={styles.title}>{product.artName}</Title>
+    <Paragraph style={styles.brand}>Brand: {product.brand}</Paragraph>
     <Paragraph style={styles.price}>${product.price.toFixed(2)}</Paragraph>
+    {product.limitedTimeDeal > 0 && (
+      <Chip icon="percent" style={styles.dealChip}>
+        {(product.limitedTimeDeal * 100).toFixed(0)}% OFF
+      </Chip>
+    )}
     <Paragraph style={styles.description}>{product.description}</Paragraph>
-  </View>
-);
-
-const ProductSpecs = ({ product }: { product: Product }) => (
-  <View style={styles.specContainer}>
-    <Title style={styles.specTitle}>Specifications:</Title>
-    <Paragraph>• Sensor: {product.sensor}</Paragraph>
-    <Paragraph>• Resolution: {product.resolution}</Paragraph>
-    <Paragraph>• ISO Range: {product.isoRange}</Paragraph>
-    <Paragraph>• Shutter Speed: {product.shutterSpeed}</Paragraph>
+    <Chip icon={product.glassSurface ? "check" : "close"} style={styles.glassChip}>
+      {product.glassSurface ? "Works on glass" : "Not for glass"}
+    </Chip>
   </View>
 );
 
@@ -57,9 +43,10 @@ const FeedbackItem = ({ feedback }: { feedback: Feedback }) => (
   />
 );
 
-const ProductDetailScreen = ({ route, navigation }: { route: any; navigation: any }) => {
-  const { product } = route.params as { product: Product };
+const ProductDetailScreen = ({ route, navigation }: ProductDetailScreenProps) => {
+  const { product } = route.params as { product: ArtSupply };
   const { isFavorite, addFavorite, removeFavorite } = useFavorite();
+  const [selectedRating, setSelectedRating] = useState<number | null>(null);
 
   const handleFavorite = () => {
     if (isFavorite(product.id)) {
@@ -71,6 +58,13 @@ const ProductDetailScreen = ({ route, navigation }: { route: any; navigation: an
 
   const averageRating =
     product.feedbacks.reduce((sum, feedback) => sum + feedback.rating, 0) / product.feedbacks.length;
+
+  const filteredFeedbacks = useMemo(() => {
+    if (selectedRating === null) {
+      return product.feedbacks;
+    }
+    return product.feedbacks.filter((feedback) => feedback.rating === selectedRating);
+  }, [product.feedbacks, selectedRating]);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -86,16 +80,34 @@ const ProductDetailScreen = ({ route, navigation }: { route: any; navigation: an
     });
   }, [navigation, isFavorite, product.id]);
 
+  const renderStarFilter = () => {
+    return (
+      <View style={styles.starFilterContainer}>
+        <Text style={styles.filterText}>Filter by rating: </Text>
+        {[1, 2, 3, 4, 5].map((rating) => (
+          <TouchableOpacity
+            key={rating}
+            onPress={() => setSelectedRating(selectedRating === rating ? null : rating)}
+            style={[styles.starButton, selectedRating === rating && styles.selectedStarButton]}
+          >
+            <Text style={[styles.starButtonText, selectedRating === rating && styles.selectedStarButtonText]}>
+              {rating}★
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Image
         source={{ uri: product.image }}
         style={styles.image}
         resizeMode="contain"
-        accessibilityLabel={`Image of ${product.name}`}
+        accessibilityLabel={`Image of ${product.artName}`}
       />
       <ProductInfo product={product} />
-      <ProductSpecs product={product} />
       <View style={styles.feedbackContainer}>
         <Title style={styles.feedbackTitle}>Customer Feedback</Title>
         <View style={styles.averageRatingContainer}>
@@ -104,10 +116,11 @@ const ProductDetailScreen = ({ route, navigation }: { route: any; navigation: an
             {averageRating.toFixed(1)} out of 5 ({product.feedbacks.length} reviews)
           </Paragraph>
         </View>
-        {product.feedbacks.map((feedback, index) => (
+        {renderStarFilter()}
+        {filteredFeedbacks.map((feedback, index) => (
           <React.Fragment key={index}>
             <FeedbackItem feedback={feedback} />
-            {index < product.feedbacks.length - 1 && <Divider />}
+            {index < filteredFeedbacks.length - 1 && <Divider />}
           </React.Fragment>
         ))}
       </View>
@@ -133,26 +146,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
   },
+  brand: {
+    fontSize: 16,
+    color: "#757575",
+    marginBottom: 8,
+  },
   price: {
     fontSize: 18,
     color: "#4CAF50",
-    marginBottom: 16,
+    marginBottom: 8,
   },
   description: {
     fontSize: 16,
     lineHeight: 24,
     marginBottom: 16,
   },
-  specContainer: {
-    backgroundColor: "#f5f5f5",
-    padding: 16,
-    borderRadius: 8,
-    marginHorizontal: 16,
-    marginBottom: 16,
+  dealChip: {
+    marginBottom: 8,
+    backgroundColor: "#FFD700",
   },
-  specTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
+  glassChip: {
     marginBottom: 8,
   },
   feedbackContainer: {
@@ -185,6 +198,31 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 6,
     marginRight: 8,
+  },
+  starFilterContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  filterText: {
+    fontSize: 16,
+    marginRight: 8,
+  },
+  starButton: {
+    padding: 8,
+    marginRight: 8,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#ddd",
+  },
+  selectedStarButton: {
+    backgroundColor: "#007AFF",
+  },
+  starButtonText: {
+    fontSize: 16,
+  },
+  selectedStarButtonText: {
+    color: "#fff",
   },
 });
 

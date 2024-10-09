@@ -1,9 +1,9 @@
-import React, { useCallback } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ListRenderItemInfo } from "react-native";
-import { Title, List, Avatar } from "react-native-paper";
+import React, { useCallback, useLayoutEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ListRenderItemInfo, Alert } from "react-native";
+import { Title, List, Avatar, Chip, Button } from "react-native-paper";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { useFavorite } from "../contexts/FavoriteContext";
-import { Product } from "../types/type";
+import { ArtSupply } from "../types/type";
 
 const { width } = Dimensions.get("window");
 
@@ -11,23 +11,57 @@ interface SwipeData {
   key: string;
   value: number;
 }
+
 const FavoriteScreenList = ({ navigation }: { navigation: any }) => {
-  const { favorites, removeFavorite } = useFavorite();
+  const { favorites, removeFavorite, deleteAllFavorite } = useFavorite();
+
+  const handleDeleteAll = useCallback(() => {
+    Alert.alert("Delete All Favorites", "Are you sure you want to delete all favorites?", [
+      {
+        text: "Cancel",
+        style: "cancel",
+      },
+      {
+        text: "Delete",
+        onPress: () => deleteAllFavorite(),
+        style: "destructive",
+      },
+    ]);
+  }, [deleteAllFavorite]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={handleDeleteAll} mode="text" compact style={styles.deleteAllButton}>
+          Delete All
+        </Button>
+      ),
+    });
+  }, [navigation, handleDeleteAll]);
 
   const renderItem = useCallback(
-    ({ item }: ListRenderItemInfo<Product>) => (
+    ({ item }: ListRenderItemInfo<ArtSupply>) => (
       <TouchableOpacity
         onPress={() => navigation.navigate("ProductDetail", { product: item })}
         style={styles.rowFront}
         activeOpacity={1}
         accessibilityRole="button"
-        accessibilityLabel={`View details of ${item.name}`}
+        accessibilityLabel={`View details of ${item.artName}`}
       >
         <List.Item
-          title={item.name}
-          description={`$${item.price}`}
+          title={item.artName}
+          description={`${item.brand} - $${item.price.toFixed(2)}`}
           left={() => <Avatar.Image size={50} source={{ uri: item.image }} />}
-          right={() => <List.Icon icon="chevron-left" />}
+          right={() => (
+            <View style={styles.rightContent}>
+              {item.limitedTimeDeal > 0 && (
+                <Chip icon="percent" style={styles.dealChip}>
+                  {(item.limitedTimeDeal * 100).toFixed(0)}% OFF
+                </Chip>
+              )}
+              <List.Icon icon="chevron-left" />
+            </View>
+          )}
         />
       </TouchableOpacity>
     ),
@@ -35,25 +69,28 @@ const FavoriteScreenList = ({ navigation }: { navigation: any }) => {
   );
 
   const renderHiddenItem = useCallback(
-    (rowData: ListRenderItemInfo<Product>) => (
+    (rowData: ListRenderItemInfo<ArtSupply>) => (
       <View style={styles.rowBack}>
         <TouchableOpacity
           style={[styles.backRightBtn, styles.backRightBtnRight]}
-          // onPress={() => removeFavorite(rowData.item.id)}
+          onPress={() => removeFavorite(rowData.item.id)}
         >
           <Text style={styles.backTextWhite}>Delete</Text>
         </TouchableOpacity>
       </View>
     ),
-    []
+    [removeFavorite]
   );
 
-  const onSwipeValueChange = (swipeData: SwipeData) => {
-    const { key, value } = swipeData;
-    if (value < -width) {
-      removeFavorite(key);
-    }
-  };
+  const onSwipeValueChange = useCallback(
+    (swipeData: SwipeData) => {
+      const { key, value } = swipeData;
+      if (value < -width) {
+        removeFavorite(key);
+      }
+    },
+    [removeFavorite]
+  );
 
   return (
     <View style={styles.container}>
@@ -120,6 +157,17 @@ const styles = StyleSheet.create({
   },
   backTextWhite: {
     color: "#FFF",
+  },
+  rightContent: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  dealChip: {
+    marginRight: 8,
+    backgroundColor: "#FFD700",
+  },
+  deleteAllButton: {
+    marginRight: 10,
   },
 });
 
